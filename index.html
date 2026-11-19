@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Виртуальная физическая лаборатория</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f6; color: #333; line-height: 1.6; }
+        header { background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); color: white; text-align: center; padding: 40px 20px; margin-bottom: 30px; }
+        header h1 { font-size: 2.5rem; margin-bottom: 10px; }
+        header p { font-size: 1.1rem; opacity: 0.9; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 0 20px 40px; }
+        .class-section { margin-bottom: 40px; }
+        .class-title { font-size: 1.8rem; color: #1e3c72; border-bottom: 2px solid #2a5298; padding-bottom: 10px; margin-bottom: 20px; }
+        .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+        .card { background: white; border-radius: 10px; padding: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); transition: transform 0.2s, box-shadow 0.2s; text-decoration: none; color: inherit; display: flex; flex-direction: column; border-left: 5px solid #2a5298; }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 8px 15px rgba(0,0,0,0.1); }
+        .card h3 { margin-bottom: 10px; color: #1e3c72; }
+        .card p { font-size: 0.9rem; color: #666; flex-grow: 1; }
+        .card .start-btn { margin-top: 15px; display: inline-block; background: #2a5298; color: white; padding: 8px 16px; border-radius: 5px; text-align: center; font-weight: bold; transition: background 0.2s; }
+        .card:hover .start-btn { background: #1e3c72; }
+        .badge { display: inline-block; background: #e0e7ff; color: #1e3c72; padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: bold; margin-bottom: 10px; align-self: flex-start; }
+        footer { text-align: center; padding: 20px; color: #888; font-size: 0.9rem; border-top: 1px solid #ddd; margin-top: 40px; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Виртуальная физическая лаборатория</h1>
+        <p>Интерактивные опыты по физике для 7–11 классов</p>
+    </header>
+
+    <div class="container">
+        
+        <!-- 7 КЛАСС -->
+        <div class="class-section">
+            <h2 class="class-title">7 класс</h2>
+            <div class="cards-grid">
+                <a href="#" class="card">
+                    <span class="badge">Механика</span>
+                    <h3>Цена деления прибора</h3>
+                    <p>Учимся определять цену деления шкалы измерительных приборов.</p>
+                    <span class="start-btn">Начать опыт</span>
+                </a>
+                <a href="#" class="card">
+                    <span class="badge">Механика</span>
+                    <h3>Измерение размеров малых тел</h3>
+                    <p>Использование метода рядов для измерения малых величин.</p>
+                    <span class="start-btn">Начать опыт</span>
+                </a>
+                <a href="#" class="card">
+                    <span class="badge">Механика</span>
+                    <h3>Плотность тела</h3>
+                    <p>Определение плотности твердого тела через массу и объем.</p>
+                    <span class="start-btn">Начать опыт</span>
+                </a>
+                <a href="#" class="card">
+                    <span class="badge">Механика</span>
+                    <h3>Закон Гука</h3>
+                    <p>Исследование зависимости силы упругости от удлинения пружины.</p>
+                    <span class="start-btn">Начать опыт</span>
+                </a>
+                <a href="#" class="card">
+                    <span class="badge">Механика</span>
+                    <h3>Сила трения</h3>
+                    <p>Изучение зависимости силы трения скольжения от веса тела.</p>
+                    <span class="start-btn">Начать опыт</span>
+                </a>
+                <a href="#" class="card">
+                    <span class="badge">Механика</span>
+                    <h3>Закон Архимеда</h3>
+                    <p>Определение выталкивающей силы, действующей на тело в жидкости.</p>
+                    <span class="start-btn">Начать опыт</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- 8 КЛАСС -->
+        <div class="class-section">
+            <h2 class="class-title">8 класс</h2>
+            <div class="cards-grid">
+                <a href="om.html" class="card">
+                    <span class="badge">Электричество</span>
+                    <h3>Закон Ома</h3>
+                    <p>Исследование зависимости силы тока от напряжения.</p>
+                    <span class="start-btn">Начать опыт</span>
+                </a>
+                <a href="#" class="card">
+                    <span class="badge">Тепловые явления</span>
+                    <h3>Теплоемкость</h3>
+                    <p>Сравнение количеств теплоты при смешивании воды.</p>
+                    <span class="start-btn">Начать опыт</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- 9 КЛАСС -->
+        <div class="class-section">
+            <h2 class="class-title">9 класс</h2>
+            <div class="cards-grid">
+                <a href="mayatnik.html" class="card">
+                    <span class="badge">Колебания</span>
+                    <h3>Математический маятник</h3>
+                    <p>Исследование зависимости периода колебаний от длины нити.</p>
+                    <span class="start-btn">Начать опыт</span>
+                </a>
+                <a href="#" class="card">
+                    <span class="badge">Электромагнетизм</span>
+                    <h3>Явление электромагнитной индукции</h3>
+                    <p>Изучение условий возникновения индукционного тока.</p>
+                    <span class="start-btn">Начать опыт</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- 10 КЛАСС -->
+        <div class="class-section">
+            <h2 class="class-title">10 класс</h2>
+            <div class="cards-grid">
+                <a href="#" class="card">
+                    <span class="badge">Молекулярная физика</span>
+                    <h3>Опытная проверка закона Гей-Люссака</h3>
+                    <p>Исследование зависимости объема газа от температуры.</p>
+                    <span class="start-btn">Начать опыт</span>
+                </a>
+                <a href="#" class="card">
+                    <span class="badge">Электродинамика</span>
+                    <h3>Измерение ЭДС и внутреннего сопротивления</h3>
+                    <p>Определение параметров источника тока с помощью закона Ома для полной цепи.</p>
+                    <span class="start-btn">Начать опыт</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- 11 КЛАСС -->
+        <div class="class-section">
+            <h2 class="class-title">11 класс</h2>
+            <div class="cards-grid">
+                <a href="#" class="card">
+                    <span class="badge">Оптика</span>
+                    <h3>Измерение показателя преломления стекла</h3>
+                    <p>Изучение законов преломления света на границе двух сред.</p>
+                    <span class="start-btn">Начать опыт</span>
+                </a>
+                <a href="#" class="card">
+                    <span class="badge">Квантовая физика</span>
+                    <h3>Наблюдение сплошного и линейчатого спектров</h3>
+                    <p>Изучение спектрального состава излучения различных веществ.</p>
+                    <span class="start-btn">Начать опыт</span>
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        &copy; 2024 Виртуальная физическая лаборатория. Разработано с использованием ИИ.
+    </footer>
+
+</body>
+</html>

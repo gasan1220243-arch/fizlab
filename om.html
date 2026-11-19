@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Закон Ома</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        h1 { color: #1e3c72; text-align: center; margin-bottom: 10px; }
+        .description { text-align: center; color: #666; margin-bottom: 30px; }
+        .lab-area { display: flex; flex-wrap: wrap; gap: 30px; }
+        
+        .canvas-container {
+            flex: 1 1 400px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #eef2f5;
+            border-radius: 10px;
+            padding: 20px;
+            flex-direction: column;
+        }
+        canvas { background: white; border-radius: 5px; box-shadow: inset 0 0 10px rgba(0,0,0,0.05); margin-bottom: 15px; }
+        
+        .controls { flex: 1 1 300px; display: flex; flex-direction: column; gap: 20px; justify-content: center; }
+        .control-group { display: flex; flex-direction: column; gap: 8px; }
+        .control-group label { font-weight: bold; color: #1e3c72; }
+        input[type=range] { width: 100%; cursor: pointer; }
+        .value-display { font-family: monospace; font-size: 1.1rem; color: #d9534f; font-weight: bold; }
+        
+        .result-box { background: #e0e7ff; padding: 15px; border-radius: 8px; border-left: 5px solid #2a5298; }
+        .result-box p { margin: 5px 0; font-size: 1.1rem; }
+        .result-box span { font-weight: bold; color: #1e3c72; font-size: 1.3rem; }
+        .formula { font-size: 0.9rem; color: #555; margin-top: 10px; font-style: italic; }
+        
+        .back-link { display: block; text-align: center; margin-top: 20px; color: #2a5298; text-decoration: none; font-weight: bold; }
+        .back-link:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Закон Ома для участка цепи</h1>
+        <p class="description">Исследование зависимости силы тока от напряжения и сопротивления</p>
+
+        <div class="lab-area">
+            <div class="canvas-container">
+                <canvas id="ohmCanvas" width="300" height="250"></canvas>
+            </div>
+
+            <div class="controls">
+                <div class="control-group">
+                    <label for="voltageSlider">Напряжение (U): <span class="value-display" id="voltageValue">5.0</span> В</label>
+                    <!-- Напряжение от 0 до 100 с шагом 0.1 -->
+                    <input type="range" id="voltageSlider" min="0" max="100" step="0.1" value="5">
+                </div>
+
+                <div class="control-group">
+                    <label for="resistanceSlider">Сопротивление (R): <span class="value-display" id="resistanceValue">2.0</span> Ом</label>
+                    <!-- Сопротивление от 0.1 до 100 с шагом 0.1 -->
+                    <input type="range" id="resistanceSlider" min="0.1" max="100" step="0.1" value="2">
+                </div>
+
+                <div class="result-box">
+                    <p>Сила тока (I): <span id="currentDisplay">2.5</span> А</p>
+                    <p class="formula">Формула: I = U / R</p>
+                </div>
+            </div>
+        </div>
+        
+        <a href="index.html" class="back-link">&larr; Вернуться на главную</a>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('ohmCanvas');
+        const ctx = canvas.getContext('2d');
+        
+        const voltageSlider = document.getElementById('voltageSlider');
+        const resistanceSlider = document.getElementById('resistanceSlider');
+        const voltageValue = document.getElementById('voltageValue');
+        const resistanceValue = document.getElementById('resistanceValue');
+        const currentDisplay = document.getElementById('currentDisplay');
+
+        function updateCircuit() {
+            const U = parseFloat(voltageSlider.value);
+            const R = parseFloat(resistanceSlider.value);
+            
+            // Защита от деления на ноль, если вдруг R станет 0
+            const I = R === 0 ? 0 : U / R; 
+
+            // Выводим значения красиво (с одним знаком после запятой)
+            voltageValue.textContent = U.toFixed(1);
+            resistanceValue.textContent = R.toFixed(1);
+            currentDisplay.textContent = I.toFixed(1);
+
+            drawCircuit(U, R, I);
+        }
+
+        function drawCircuit(U, R, I) {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            let wireColor = '#555';
+            if (I > 10) wireColor = '#ff9900';
+            if (I > 30) wireColor = '#ff3300';
+
+            ctx.strokeStyle = wireColor;
+            ctx.lineWidth = 3;
+            ctx.lineJoin = 'round';
+
+            ctx.beginPath();
+            ctx.rect(50, 50, 200, 150);
+            ctx.stroke();
+
+            // Батарейка
+            ctx.fillStyle = 'white';
+            ctx.fillRect(40, 110, 20, 30);
+            ctx.strokeRect(40, 110, 20, 30);
+            ctx.beginPath();
+            ctx.moveTo(45, 115); ctx.lineTo(55, 115);
+            ctx.moveTo(47, 125); ctx.lineTo(53, 125);
+            ctx.moveTo(45, 135); ctx.lineTo(55, 135);
+            ctx.lineWidth = 2;
+            ctx.strokeStyle = '#333';
+            ctx.stroke();
+            ctx.fillStyle = '#333';
+            ctx.font = '12px Arial';
+            ctx.fillText('U', 35, 105);
+
+            // Резистор
+            ctx.fillStyle = 'white';
+            ctx.fillRect(120, 40, 60, 20);
+            ctx.strokeStyle = wireColor;
+            ctx.strokeRect(120, 40, 60, 20);
+            ctx.beginPath();
+            ctx.moveTo(120, 50);
+            ctx.lineTo(130, 40);
+            ctx.lineTo(140, 60);
+            ctx.lineTo(150, 40);
+            ctx.lineTo(160, 60);
+            ctx.lineTo(170, 40);
+            ctx.lineTo(180, 50);
+            ctx.strokeStyle = '#333';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+            ctx.fillStyle = '#333';
+            ctx.fillText('R', 145, 35);
+
+            // Амперметр
+            ctx.beginPath();
+            ctx.arc(250, 125, 20, 0, Math.PI * 2);
+            ctx.fillStyle = 'white';
+            ctx.fill();
+            ctx.strokeStyle = '#333';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+            ctx.fillStyle = '#333';
+            ctx.font = 'bold 16px Arial';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('A', 250, 125);
+            
+            // Анимация тока (скорость зависит от силы тока)
+            ctx.fillStyle = wireColor;
+            // Чем больше ток, тем быстрее движутся точки
+            const speed = Math.min(I * 2, 50); 
+            const offset = (Date.now() / (100 - speed)) % 20; 
+            
+            for (let i = 0; i < 6; i++) {
+                let x = 60 + i * 30 + offset;
+                if (x > 240) x -= 180;
+                ctx.beginPath();
+                ctx.arc(x, 50, 3, 0, Math.PI * 2);
+                ctx.fill();
+            }
+            
+            ctx.textAlign = 'left';
+            ctx.textBaseline = 'alphabetic';
+        }
+
+        function animate() {
+            updateCircuit();
+            requestAnimationFrame(animate);
+        }
+
+        voltageSlider.addEventListener('input', updateCircuit);
+        resistanceSlider.addEventListener('input', updateCircuit);
+
+        animate();
+    </script>
+</body>
+</html>
